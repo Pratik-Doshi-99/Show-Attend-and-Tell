@@ -19,12 +19,12 @@ def generate_json_data(split_path, data_path, max_captions_per_image, min_word_c
                 caption_count += 1
             else:
                 break
-
+            path = data_path + '/imgs/' + img['filepath'] + '/' + img['filename'] if 'filepath' in img else data_path + '/imgs/' + img['filename']
             if img['split'] == 'train':
-                train_img_paths.append(data_path + '/imgs/' + img['filepath'] + '/' + img['filename'])
+                train_img_paths.append(path)
                 train_caption_tokens.append(sentence['tokens'])
             elif img['split'] == 'val':
-                validation_img_paths.append(data_path + '/imgs/' + img['filepath'] + '/' + img['filename'])
+                validation_img_paths.append(path)
                 validation_caption_tokens.append(sentence['tokens'])
             max_length = max(max_length, len(sentence['tokens']))
             word_count.update(sentence['tokens'])
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     parser.add_argument('--data-path', type=str, default='data/coco')
     parser.add_argument('--max-captions', type=int, default=5,
                         help='maximum number of captions per image')
-    parser.add_argument('--min-word-count', type=int, default=5,
+    parser.add_argument('--min-word-count', type=int, default=1,
                         help='minimum number of occurences of a word to be included in word dictionary')
     args = parser.parse_args()
 
