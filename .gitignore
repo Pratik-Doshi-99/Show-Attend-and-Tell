@@ -5,4 +5,5 @@ batch.s
 results.out
 
 data/coco
+data/flickr8k
 model/model*
